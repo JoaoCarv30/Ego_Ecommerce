@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { FetchApiContext } from "../../context/FetchApi";
 import loading from "../../assets/bouncing-circles.svg";
 
+
 const Cards = () => {
   const { dataApi } = useContext(FetchApiContext);
 
@@ -17,7 +18,7 @@ const Cards = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {dataApi.length > 0 ? (
           dataApi.map((item) => (
-            <div key={item.id} className="p-4 bg-white text-black flex flex-col items-center justify-between rounded-md shadow-md relative overflow-auto">
+            <div key={item.id} className="p-4 bg-white text-black flex flex-col items-center justify-between rounded-md shadow-md relative overflow-hidden">
               <span className="absolute  -top-2 -right-1 bg-dark-blue text-white w-10 h-8 flex items-center justify-center rounded-lg text-lg font-bold">+</span>
               <a href={item.permalink} target="_blank" rel="noopener noreferrer">
                 <img

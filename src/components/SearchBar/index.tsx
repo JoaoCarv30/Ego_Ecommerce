@@ -15,19 +15,23 @@ const SearchBar = () => {
 
   return (
     <form className='w-screen flex flex-col items-center justify-center m-4' onSubmit={handleSearch}>
-      <h1 className='m-2'>Pesquise os melhores produtos pelo melhor preço</h1>
-      <div>
-        <input
-          type="text"
-          className='p-2 rounded-r-md border border-r-0 w-64'
-          placeholder='Computador ...'
-          value={search}
-          onChange={(e) => setSearch(e.target.value)} // Atualiza o estado local
-        />
-        <button type="submit" className='bg-dark-blue text-white p-3 rounded-r-md'>
-          <FaSearch />
-        </button>
-      </div>
+      <div className="flex">
+  <input
+    type="text"
+    className="p-3 rounded-l-md border border-gray-300 w-64 focus:outline-none focus:ring-2 focus:ring-dark-blue"
+    placeholder="Computador ..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+  <button
+    type="submit"
+    className="bg-dark-blue text-white px-4 py-3 rounded-r-md hover:bg-blue-700 transition-colors duration-200"
+  >
+    <FaSearch />
+  </button>
+</div>
+
+
     </form>
   );
 };

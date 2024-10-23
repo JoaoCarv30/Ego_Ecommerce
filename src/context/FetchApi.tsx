@@ -16,6 +16,7 @@ interface FetchApiContextProps {
 interface FetchApiContextType {
   dataApi: FetchApiContextProps[];
   setQuery: (query: string) => void; // Função para atualizar a query
+  setCartCount: (cartcount: number) => void;
 }
 
 export const FetchApiContext = createContext({} as FetchApiContextType);
@@ -23,6 +24,7 @@ export const FetchApiContext = createContext({} as FetchApiContextType);
 export const FetchApiProvider = ({ children }: FetchApiProviderProps) => {
   const [dataApi, setDataApi] = useState<FetchApiContextProps[]>([]);
   const [query, setQuery] = useState<string>(''); // Estado para armazenar a pesquisa
+  const [cartcount, setCartCount] = useState<number>(0);
 
   useEffect(() => {
    
@@ -41,8 +43,13 @@ export const FetchApiProvider = ({ children }: FetchApiProviderProps) => {
 
   }, [query]); // Atualiza sempre que a query mudar
 
+
+  function CartCounter (counter: number) {
+    setCartCount(counter + 1)
+  }
+
   return (
-    <FetchApiContext.Provider value={{ dataApi, setQuery }}>
+    <FetchApiContext.Provider value={{ dataApi, setQuery, setCartCount }}>
       {children}
     </FetchApiContext.Provider>
   );
