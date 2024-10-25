@@ -11,7 +11,6 @@ const SearchBar = () => {
     setQuery(search); // Atualiza o valor de pesquisa no contexto
   };
 
-  console.log(search);
 
   return (
     <form className='w-screen flex flex-col items-center justify-center m-4' onSubmit={handleSearch}>

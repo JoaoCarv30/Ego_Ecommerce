@@ -1,10 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FetchApiContext } from "../../context/FetchApi";
 import loading from "../../assets/bouncing-circles.svg";
 
 
+
+interface CardsProps {
+  id: string;
+  title: string;
+  thumbnail: string;
+  price: number;
+  official_store_name: string;
+  permalink: string;
+}
+
+
+
+
 const Cards = () => {
-  const { dataApi } = useContext(FetchApiContext);
+  const { dataApi, setCartItems, cartItems } = useContext(FetchApiContext);
+
 
   function formatPrice(price: number) {
     return new Intl.NumberFormat('pt-BR', {
@@ -13,13 +27,22 @@ const Cards = () => {
     }).format(price);
   }
 
+  function handleAddToCart(item: CardsProps) {
+    console.log('produto adicionado ao carrinho', item);
+    setCartItems([...cartItems, item]);
+    console.log(item);
+  }
+
   return (
     <section className=" h-full p-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {dataApi.length > 0 ? (
           dataApi.map((item) => (
             <div key={item.id} className="p-4 bg-white text-black flex flex-col items-center justify-between rounded-md shadow-md relative overflow-hidden">
+              <button onClick={()=> handleAddToCart(item)}>
+
               <span className="absolute  -top-2 -right-1 bg-dark-blue text-white w-10 h-8 flex items-center justify-center rounded-lg text-lg font-bold">+</span>
+              </button>
               <a href={item.permalink} target="_blank" rel="noopener noreferrer">
                 <img
                   src={item.thumbnail.replace(/\w\.jpg/gi, 'W.jpg')}
