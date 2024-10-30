@@ -11,13 +11,14 @@ interface CardsProps {
   price: number;
   official_store_name: string;
   permalink: string;
+  quantity?: number;
 }
 
 
 
 
 const Cards = () => {
-  const { dataApi, setCartItems, cartItems } = useContext(FetchApiContext);
+  const { dataApi, setCartItems, cartItems, setCartQuantity, cartQuantity } = useContext(FetchApiContext);
 
 
   function formatPrice(price: number) {
@@ -28,9 +29,37 @@ const Cards = () => {
   }
 
   function handleAddToCart(item: CardsProps) {
-    console.log('produto adicionado ao carrinho', item);
-    setCartItems([...cartItems, item]);
-    console.log(item);
+
+    console.log("entrou no handleAddToCart")
+
+    if (!cartItems.includes(item)) {
+      setCartQuantity(cartQuantity + 1);
+    }
+
+    if (cartItems.length === 0) {
+      setCartItems([...cartItems, item]);
+    }else{
+      cartItems.forEach((product) => {
+        if (product.id === item.id) {
+          console.log("entrou no if 1")
+          if (product.quantity !== undefined) {
+            console.log("entrou no if 2")
+            product.quantity = product.quantity + 1;
+          }
+        }else{
+          console.log("entrou no else")
+          setCartItems([...cartItems, item]);
+  
+        }
+      });
+    }
+
+    
+
+   
+    console.log(cartItems);
+
+  
   }
 
   return (

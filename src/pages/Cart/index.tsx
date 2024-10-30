@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { FetchApiContext } from "../../context/FetchApi";
+import carrinhoVazio from '../../assets/carrinhoVazio.png';
 
 const Cart = () => {
 
@@ -16,14 +17,18 @@ const Cart = () => {
     }
   };
 
+  
+
   const price = 100.00;
   const subtotal = price * quantity;
 const total = subtotal;
 
+const totalCart = cartItems.reduce((acc, item) => acc + item.price * quantity, 0);
+
   return (
-    <main className='flex flex-col w-screen h-screen overflow-hidden'>
+    <main className='flex flex-col w-screen h-[calc(100vh-125px)] overflow-hidden'>
       {/* Conteúdo da tabela */}
-      <section className='flex-1 overflow-auto w-screen overflow-hidden'>
+      <section className='flex-1  w-screen overflow-hidden'>
         <table className='table-auto w-full text-center border-collapse'>
           <thead>
             <tr className='bg-light-blue text-white font-bold text-sm sm:text-lg'>
@@ -35,7 +40,8 @@ const total = subtotal;
             </tr>
           </thead>
           <tbody>
-            {cartItems.map((item)=> (
+           {cartItems.length > 0 ?  (
+             cartItems.map((item)=> (
                <tr className='border-t'>
                <td className='p-2 flex flex-col sm:flex-row items-center justify-start gap-2 sm:gap-4'>
                  <img
@@ -68,7 +74,10 @@ const total = subtotal;
                  </button>
                </td>
              </tr>
-            ))}
+            ))
+           ) : <section className='flex items-center justify-center h-screen w-screen'>
+           <img src={carrinhoVazio} alt="imagem carrinho vazio" />
+            </section>} 
           </tbody>
         </table>
       </section>
@@ -77,7 +86,12 @@ const total = subtotal;
       <section className='w-full fixed bottom-0 left-0 flex items-center justify-end bg-light-blue py-4 px-4'>
         <div className='text-sm sm:text-lg font-bold text-white'>
           <span>Total: </span>
-          <span className='text-white font-bold text-2xl'>R$ {total.toFixed(2)}</span>
+          <span className='text-white font-bold text-2xl'>R$ {totalCart.toLocaleString(
+            'pt-BR',
+            {
+              minimumFractionDigits: 2,
+            }
+          )}</span>
         </div>
       </section>
     </main>

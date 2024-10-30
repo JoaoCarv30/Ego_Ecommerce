@@ -11,6 +11,7 @@ interface FetchApiContextProps {
   price: number;
   official_store_name: string;
   permalink: string;
+  quantity?: number; // Adicionamos a quantidade aqui
 }
 
 interface FetchApiContextType {
@@ -18,6 +19,8 @@ interface FetchApiContextType {
   setQuery: (query: string) => void; // Função para atualizar a query
   setCartItems: (cartItems: FetchApiContextProps[]) => void;
   cartItems: FetchApiContextProps[];
+  cartQuantity: number;
+  setCartQuantity: (cartQuantity: number) => void;
 }
 
 export const FetchApiContext = createContext({} as FetchApiContextType);
@@ -30,6 +33,7 @@ export const FetchApiProvider = ({ children }: FetchApiProviderProps) => {
   const [dataApi, setDataApi] = useState<FetchApiContextProps[]>([]);
   const [query, setQuery] = useState<string>(''); // Estado para armazenar a pesquisa
   const [cartItems, setCartItems] = useState<FetchApiContextProps[]>([]);
+  const [cartQuantity, setCartQuantity] = useState<number>(0);
 
   useEffect(() => {
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=celular`) // Busca por celular
@@ -56,7 +60,7 @@ export const FetchApiProvider = ({ children }: FetchApiProviderProps) => {
 
 
   return (
-    <FetchApiContext.Provider value={{ dataApi, setQuery, setCartItems, cartItems }}>
+    <FetchApiContext.Provider value={{ dataApi, setQuery, setCartItems, cartItems, cartQuantity, setCartQuantity }}>
       {children}
     </FetchApiContext.Provider>
   );
