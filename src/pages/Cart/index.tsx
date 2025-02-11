@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { FetchApiContext } from "../../context/FetchApi";
 import carrinhoVazio from '../../assets/carrinhoVazio.png';
 
@@ -19,9 +19,6 @@ const Cart = () => {
 
   
 
-  const price = 100.00;
-  const subtotal = price * quantity;
-const total = subtotal;
 
 const totalCart = cartItems.reduce((acc, item) => acc + item.price * quantity, 0);
 

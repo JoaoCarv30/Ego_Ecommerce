@@ -1,4 +1,3 @@
-import React from 'react'
 import error404 from "../../assets/4.svg"
 import { Link } from 'react-router-dom'
 const Errorpage = () => {
