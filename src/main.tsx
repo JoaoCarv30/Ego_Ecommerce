@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouterProvider,
 } from "react-router-dom";
 import './index.css';
@@ -9,10 +9,9 @@ import { FetchApiProvider } from './context/FetchApi.tsx';
 import Cart from './pages/Cart/index.tsx';
 import Errorpage from './pages/Errorpage/index.tsx';
 import LayoutMain from './Layout/LayoutMainPage/index.tsx';
-
 import HomePage from './pages/HomePage/index.tsx';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <LayoutMain />,  // Define LayoutMain como o layout principal
